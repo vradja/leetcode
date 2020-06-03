@@ -1,0 +1,182 @@
+Given an array, find the average of all contiguous subarrays of size ‘K’ in it:
+    Approach 1:
+        - Fixed sized window of K.
+            - Find window_sum of fixed size and divide by K.
+                - add to result list.
+            - then for loop starting at Kth index till end of arr
+                - subtract the window_start index and add the value of window_end.
+
+    Approach 2:
+        - Do prefix sum of all entries by using itertools.accumulate.
+        - add a [0] at the 0th index. Hence prefix sum will have +1 since of original array. if array is of size 9, then prefix sum will have size 10.
+        - then subtract end with beginning of prefix sum, using lambda. Since we have more than 1 size of array, we will firstly subtract with 0.
+
+53. Given an array of positive numbers and a positive number ‘k’, find the maximum sum of any contiguous subarray of size ‘k’.
+    Approach 1:
+        - Similar to above problem of maximum average. Except instead of calculating average, find the max sum.
+
+    Approach 2:
+        - Similar to the above prefix sum. here instead of converting the map lambda to list, do max of map of lambda of begin, end where cumulative[:-K], cumulative[K:]
+        - cumulative[:-K] and cumulative[K:] have same number of indices because of the slicing end index being non inclusive.
+
+209. Smallest Subarray with a given sum:
+    Approach 1:
+        - Since this is a varying width sliding window problem, we have to start from index 0 till end of array
+        - Then when we find a sum that is more than K, we try to shrink from left index. We use while inside the for here.
+        - Then we find the minimum sum that leads to the solution.
+    Approach 2:
+        - Since the problem involves sum, we can approach this problem with prefix sum / cumulative sum too.
+        - Calculate cumulative sum using itertools accumulate. Put [0] in front.
+        - then instead of adding and subtracting values to window, just find difference between window_end and window_start.
+        - Since we have already calculated the prefix sum, we dont have to slide the window by adding or subtracting.
+        - Just subtract the values. Since we have already completed the step of adding in cumulative sums.
+
+340. Given a string, find the length of the longest substring in it with no more than K distinct characters.
+    Approach 1: Counter
+        - For each window_end starting at 0 till the end of arr, update the frequency of freq_counter.
+        - If len(freq_counter) is more than allowed K,
+            - Do while loop to reduce the winow_start to keep the sliding window with only K unique characters.
+        - Go ahead and calculate the longest substring length.
+
+    Approach 2: Index Dictionary
+        - Here just update the index for each character encountered. Duplicate characters gets updated easily.
+        - When len(index_dict) is more than allowed K:
+            - Find the key which has lowest value.
+            - This is the step which will be the result of WHILE at the above approach.
+            - We just skip the while with a single IF and by storing the index instead of frequency. This saves time.
+        - Delete the lowest valued key from index_dict.
+        - Move one character ahead from the deleted key.
+        - Now calculate the longest substring with K distinct characters.
+
+159. Fruits into Baskets / Longest Substring with at most two distinct characters.
+    Approach 1 & Approach 2, same as above program. update K with 2.
+
+3. Given a string, find the length of the longest substring which has no repeating characters. / Longest Substring without repeating characters.
+    - Important to note here that for all problems involving longest substring of characters, use index_dict.
+        - this helps us to skip the while loop and use if loop. Also it helps in moving to the next position of previous index of encountered character.
+            - that is: window_start will move to the +1 index of encountered character.
+            - Main difference between this and longest K distinct is:
+                - K distinct: find the dict value with least index and delete ist key from dictionary.
+                - no repeating: find the max of window_start vs previous encounter location of encountered character.
+                    - Reason: we cannot have duplicates in window, hence slide the window to remove the previous index + 1 of encountered character and include the new character.
+    - create a index_dict and store its window_end at each step.
+    - if duplicate is encountered in index_dict or sliding window, we plan to remove the previous occurance with:
+        - max(window_start, index_dict[value] + 1)
+        - here we may encounter a situation where index_dict[value] + 1 can skip multiple characters to the right.
+            - In this case, the window_start will be less like 0th index. Hence index_dict[value] + 1 becomes the new window_start
+        - Similarly we may encounter a situation where window_start is far ahead right but the index_dict[value] can be trailing behing window_start, due to its previous iteration pushing it very right:
+            - example can be for string "abccbad". here 'c' will push window_start to 3. but index_dict['b'] is 1.
+            - Clearly 3 > 1 and hence winow_start stays the max of both. In this cae sliding window stay at same window_start. Since we have already skipped the duplicate b by jumping post duplicate c in previous iteration.
+
+424. Given a string with lowercase letters only, if you are allowed to replace no more than ‘k’ letters with any letter, find the length of the longest substring having the same letters after replacement.
+    REPLACEMENT OF CHARACTER TYPE:
+        - Always use collections.Counter for freq_counter.
+        - Introduce max_freq_char_count to find the max repeating character in the current sliding window.
+
+    Approach:
+        - There are two ways to calculate max_freq_char_count: traditional way vs Smart way
+            - Traditionl way: use max(freq_counter.values()). This iterates over whole dictionary to find the max frequency.
+            - Smart way: Keep track of max_freq_char_count by keeping the previous sliding window's max frequency count.
+                - Here, we keep the max frequency of sliding window along the way without reducing it.
+                - Also we compare with encountered character's frequency: Since the encountering char can be duplicate of another chat in sliding window, this saves us a trip to iterating the dictionary again.
+                - By this way, even if the window contains "abcd" +> max frequency = 1, However the value of max_freq_char_count stays at 2, due to previous window of "aabc"
+                    - Consider example : "aabcdefaaa"
+        - After finding this max char frequency, we calculate the replacement count by subtracting the max char freq with the window size.
+        - If the replacement count is more than K, we move the window_start by +1 to the right.
+        - Remember here we do not do any while loop, since replacement char problems increase in window_size only one by one unlike the sum or averages problem.
+            - There is no sudden surge of values here. Since IF is enough.
+        - After moving window_start to the right, we calculate the longest_substring or longest sliding window.
+
+    NOTE: The window size once grows, never shrinks in this case, since we do not use WHILE. We only increase by +1 at a time or keep it the same size by moving window_start to the right.
+
+1004. Given an array containing 0s and 1s, if you are allowed to replace no more than ‘k’ 0s with 1s, find the length of the longest contiguous subarray having all 1s.
+    Approach 1:
+        - Very similar to replacement of K characters problem above.
+        - Since it is clearly given we have only 1's and 0s, we have 2 options:
+            - track 1's or track 0's
+                - Tracking 0's directly gives us the replaceable count, since we replace 0's with 1's in the given window.
+                - tracking 1's is also good. we just need to subtract it with window size again to find replaceable characters.
+                - We can also use freq_counter for this purpose, just that its an overkill for such a simple problem.
+        - As the window grows, if the 0's cross the limit K, we move the window_start by one to maintaining the same window size, with the hope it can be increased in later iterations.
+        - We calculate the sliding window size and make it the longest 1's with K repalcements of 0's.
+
+    Approach 2:
+        - Since these are boolean values, we can just have cumulative_sum of values in sliding window.
+        - Subtract the cumulative sum from window size. This is the replaceable count.
+        - if the replaceable count is more than K, we move window_start to the right and try to increase the window_size.
+        - Then we keep updating the max longest sliding window size.
+
+567. Given a string and a pattern, find out if the string contains any permutation of the pattern.
+    Approach 1: This is a fixed size sliding window of size len(pattern). Since its fixed size, Counter is enough, We dont have to shrink.
+    No need for window_end since this has fixed size. Make it window_start and value in for loop. No need to increment the window_start too.
+        - for permutation with fixed size, we need to create 2 Counters: window_counter and pattern counter of fixed size
+            - We can then check if both are equal and return True if they are equal.
+        - if not, then loop over all the remaining string starting at len(pattern), till the end of string
+        - then we add the next element and remove the window_first and check again for equality.
+        - return true if match is found, else return false.
+
+    Approach 2: Since its fixed size window, we use only pattern_counter and matched for this approach.
+        - We then iterate the string for size of pattern and compare them with pattern_counter using matched count, whenever the value reaches 0.
+        - If matched does not equal to length of pattern, then we continue to move the sliding window to the right and do the same matched check.
+        - we then subtract the window_end value to pattern_dict. if the pattern_counter[val] becomes 0, then its a match.
+        - we move the window start to right and we add back the patern_counter[val] += 1. if this was 0 and got changed to 1, we subtract matched by -1/
+        - we also move window start by +1 at last step.
+        - then compare the matched with len(pattern_counter) and return true or False.
+
+438. Find All Anagrams in a String / Given a string and a pattern, find all anagrams of the pattern in the given string.
+    Approach 1: Similar to above program, this is fixed size window. We do not need window_end. instead use window_start and add +1 if there is a match.
+        - Take 2 counters and update window_counter as we slide the fixed size window.
+            - if match is found, add the window_start + 1 as index since window_start is the element to delete.
+
+    Approach 2:
+        - This approach involves 2 counters but a slower version where we use slicing of [window_start + 1 : window_start + len(pattern) + 1]
+
+    Approach 3: Matched approach with a single pattern counter.
+        - Exactly as Approach 2 of above program. Only difference is that we add window_start + 1 to result_index.
+
+76. Given a string and a pattern, find the smallest substring in the given string which has all the characters of the given pattern.
+    Approach 1: 2 Counters (variable sized window -> DO NOT pre_calculate the window_counter)
+        - Since this is variable size window, we make patter_counter first.
+        - Then we make an empty window_counter. We iterate the array and add the frequency of encountered value to window_counter.
+        - while pattern_counter - window_counter == 0, we keep shriking the window from left window_start.
+            - This way, we try to find the minimum subarray that has the pattern in it.
+        - We move the window_start to the right and try again till the condition fails where the substring no longer has pattern.
+        - keep repeating till end of array and record the smallest subarray inside WHILE loop.
+
+    Approach 2:
+        - create a pattern_counter with the given pattern.
+        - We then keep the matched to 0.
+        - Then we iterate from 0 to end of array, with making sure matched is len(pattern_counter).
+            - here we check if any value in pattern is 0 and make matched +1.
+        - While matched == len(pattern), we shrink the size of window from right side.
+            - when you do this, if we are removing a 0 values pattern_window value, then matched becomes -1.
+            - we repeat as long as the matched is satisfying the requirement, thereby reducing the window size.
+            - meanwhile, we keep recording the sub_string array as min, immediately after WHILE.
+        - return the min_array of matching pattern.
+
+    Approach 3:
+        - instead of using a min_subarray string as output, we can use a set (window_start, window_end + 1).
+            - we put +1 here to make it easier for string[min_subarray[0]:min_subarray[1]], for min_subarray[1].
+
+30. Given a string and a list of words, find all the starting indices of substrings in the given string that are a concatenation of all the given words exactly once without any overlapping of words. It is given that all words are of the same length.
+    Approach 1: Clean solution with 2 counters. This is fixed window problem of window_length = word_length * words_length
+        - pattern_counter as usual for words.
+        - iterate start to end of string:
+            - here window_length till len(string) + 1 in range, since +1 is needed for inclusiveness.
+        - find window_words using list comprehension and using step size of word_length
+            - add these words to window_counter.
+        - check for pattern_counter and window_counter equality.
+            - if equal, add the window_start to result_index.
+
+    Approach 2: using matched.
+        - Similar to above approach, except do not use window_counter and instead use matched.
+        - outside for loops over range of len(pattern) till end of (string + 1).
+            - use slicing to capture fixed size window. the +1 is required to read the last character of string.
+            - inner for loop does the same list comprehension above approach.
+            - it uses range with step of 3 and compares each word with pattern_dict.
+                - if pattern_dict becomes 0, we add matched == 1.
+                - if there is duplicate or a different word, we break out of for loop and move window_start by one character.
+                    - in range, window_end also moved one character, making it a sliding window of fixed size.
+                    - we perform the same function again to find words that match the pattern_dictionary.
+                    - If match is found, we add the window_start to the list.
+            - return the return indices.
