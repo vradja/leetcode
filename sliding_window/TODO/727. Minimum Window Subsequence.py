@@ -12,6 +12,7 @@ def minWindow(S, T):
         matched_till_index = -1
         for window_end in range(first_char_index, len(S)):
             window_end_char = S[window_end]
+
             if window_end_char in pattern_counter:
                 if matched_till_index < len(T) - 1:
                     if window_end_char == T[matched_till_index + 1]:
