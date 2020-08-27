@@ -19,7 +19,8 @@ class Solution:
 
 def main():
     sol = Solution()
-    print("Smallest subarray length: " + str(sol.shortestSubarray([84,-37,32,40,95], 167)))
+    print("Smallest subarray length: " + str(sol.shortestSubarray([84, -37, 32, 40, 95], 167)))
     # Solution should be 3, but we get 5. Learn the deque solution.
+
 
 main()

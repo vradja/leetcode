@@ -82,7 +82,7 @@ def find_string_anagrams(string: str, pattern: str):
             pattern_counter[window_start_char] += 1
 
         if matched == len(pattern_counter):
-            result_indexes.append(window_start+1)
+            result_indexes.append(window_start + 1)
 
     return result_indexes
 

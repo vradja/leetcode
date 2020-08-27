@@ -80,6 +80,7 @@ def find_substring_3(string, pattern):
 
     return string[min_window[0]:min_window[1]] if min_window[1] - min_window[0] < len(string) + 1 else ""
 
+
 # Not so good solution.
 def find_substring_4(string, pattern):
     window_start, matched, substr_start = 0, 0, 0
@@ -116,5 +117,6 @@ def find_substring_4(string, pattern):
 def main():
     # print(find_substring('aaabdec', 'aabc'))
     print(find_substring('aaabb', 'aab'))
+
 
 main()

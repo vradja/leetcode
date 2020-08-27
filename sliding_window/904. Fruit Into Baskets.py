@@ -6,7 +6,7 @@ def fruits_into_baskets(fruits):
         index_dict[fruit] = window_end
 
         if len(index_dict) > 2:
-            window_start = min(index_dict.values()) # Needed for removing the least index character
+            window_start = min(index_dict.values())  # Needed for removing the least index character
             index_dict.pop(fruits[window_start], None)
             window_start += 1
 
@@ -14,10 +14,11 @@ def fruits_into_baskets(fruits):
 
     return longest_substring
 
+
 def main():
-  # print("Maximum number of fruits: " + str(fruits_into_baskets(['A', 'B', 'C', 'A', 'C'])))
-  # print("Maximum number of fruits: " + str(fruits_into_baskets(['A', 'B', 'C', 'B', 'B', 'C'])))
-  print("Maximum number of fruits: " + str(fruits_into_baskets("abaccc")))
+    # print("Maximum number of fruits: " + str(fruits_into_baskets(['A', 'B', 'C', 'A', 'C'])))
+    # print("Maximum number of fruits: " + str(fruits_into_baskets(['A', 'B', 'C', 'B', 'B', 'C'])))
+    print("Maximum number of fruits: " + str(fruits_into_baskets("abaccc")))
 
 
 main()

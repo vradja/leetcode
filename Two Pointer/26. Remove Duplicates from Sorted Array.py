@@ -23,9 +23,19 @@ def remove_duplicates_2(arr):
     return count
 
 
+def removeDuplicates(self, arr: List[int]) -> int:
+    prev = 0
+    for value in arr:
+        if arr[prev] != value:  # if not duplicate
+            prev += 1
+            arr[prev] = value
+
+    return prev + 1
+
+
 def remove_duplicates(nums) -> int:
     # lookup slice assignment
-    nums[:] = sorted(set(nums)) # this will replace list in place
+    nums[:] = sorted(set(nums))  # this will replace list in place
     # https://stackoverflow.com/questions/10623302/how-assignment-works-with-python-list-slice/10623352#10623352
     return len(nums)
 

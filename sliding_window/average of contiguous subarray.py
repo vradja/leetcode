@@ -2,7 +2,6 @@ import functools
 import itertools
 
 # Given an array, find the average of all contiguous subarrays of size ‘K’ in it.
-import operator
 
 
 def find_averages_of_subarrays_1(K, arr):
@@ -40,7 +39,7 @@ def find_averages_of_subarrays_3(K, arr):
 def find_averages_of_subarrays_4(K, arr):
     # Since the window is of fixed size K
     window_sum = sum(arr[:K])
-    result = [window_sum/K]
+    result = [window_sum / K]
 
     for window_start, value in enumerate(arr[K:]):
         window_sum += value - arr[window_start]

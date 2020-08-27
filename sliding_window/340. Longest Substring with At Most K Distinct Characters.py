@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 class Solution:
 
     def remove_from_counter(self, freq_d, val):
@@ -34,8 +35,10 @@ class Solution:
             longest_substring = max(window_end - window_start + 1, longest_substring)
         return longest_substring
 
+
 def main():
     sol = Solution()
     print(sol.lengthOfLongestSubstringKDistinct("ecebaab", 2))
+
 
 main()

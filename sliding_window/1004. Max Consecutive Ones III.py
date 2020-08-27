@@ -22,7 +22,7 @@ class Solution:
 
         return longest_sub_string
 
-    def longestOnes_1(self,arr, K):
+    def longestOnes_1(self, arr, K):
         window_start, longest_substring, max_ones_count, replaceable_count = 0, 0, 0, 0
         # No need for dict, since it is specified only 1's are needed in maximum sequence. Just keep track of 1's
 
@@ -37,9 +37,11 @@ class Solution:
             longest_substring = window_end - window_start + 1
         return longest_substring
 
+
 def main():
     sol = Solution()
     print(sol.longestOnes([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2))
     print(sol.longestOnes([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3))
+
 
 main()

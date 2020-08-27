@@ -14,6 +14,7 @@ def non_repeat_substring(string):
 
     return longest_subset
 
+
 def main():
     # print("Length of the longest substring: " + str(non_repeat_substring("aabccbb")))
     # print("Length of the longest substring: " + str(non_repeat_substring("abbbb")))

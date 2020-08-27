@@ -33,12 +33,12 @@ def find_word_concatenation_2(string, words):
     window_length = words_length * word_length
 
     # moving window of fixed size
-    for window_end in range(window_length, len(string)+1):  # we put -1 here, to make it inclusive
+    for window_end in range(window_length, len(string) + 1):  # we put -1 here, to make it inclusive
         matched = 0
         window_counter = Counter(words)
 
         # looping window
-        for i in range(window_start, window_end, word_length): # we put +1 here to make it inclusive
+        for i in range(window_start, window_end, word_length):  # we put +1 here to make it inclusive
             word = string[i:i + word_length]
             if word in window_counter:
                 window_counter[word] -= 1

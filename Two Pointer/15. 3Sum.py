@@ -35,6 +35,7 @@ class Solution:
             else:
                 d[value] = index
 
+
 sol = Solution()
 print(sol.threeSum([-3, 0, 1, 2, -1, 1, -2]))
 # print(search_triplets([-5, 2, -1, -2, 3]))

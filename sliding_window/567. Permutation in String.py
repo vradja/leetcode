@@ -1,4 +1,4 @@
-import collections, copy
+import collections
 
 
 def find_permutation_1(str, pattern):

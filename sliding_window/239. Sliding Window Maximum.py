@@ -62,6 +62,7 @@ def maxSlidingWindow_3(nums, k):
 
     return result
 
+
 # Dynamic Programming
 def maxSlidingWindow(nums, k):
     from_left = [0] * len(nums)

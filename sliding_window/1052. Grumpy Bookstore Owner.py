@@ -110,8 +110,9 @@ class Solution:
 
         return satisfied_customers + max_window_sum
 
+
 sol = Solution()
 
 # print(sol.maxSatisfied([2, 6, 6, 9], [0, 0, 1, 1], 1))
-print(sol.maxSatisfied([1,0,1,2,1,1,7,5], [0,1,0,1,0,1,0,1], 3))
+print(sol.maxSatisfied([1, 0, 1, 2, 1, 1, 7, 5], [0, 1, 0, 1, 0, 1, 0, 1], 3))
 # print(sol.maxSatisfied([9, 10, 4, 5], [1, 0, 1, 1], 1))

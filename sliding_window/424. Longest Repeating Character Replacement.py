@@ -7,7 +7,8 @@ def length_of_longest_substring(string, K):
 
     for window_end, value in enumerate(string):
         freq_counter[value] += 1
-        max_freq_char_count = max(max_freq_char_count, freq_counter[value]) # Better Approach, create a sliding window and expect for higher size.
+        max_freq_char_count = max(max_freq_char_count, freq_counter[
+            value])  # Better Approach, create a sliding window and expect for higher size.
         # max_freq_char_count = freq_dict[max(freq_dict, key = lambda x: freq_dict[x])]
         # max_freq_char_count = max(freq_dict.values())
         replaceable_count = (window_end - window_start + 1) - max_freq_char_count
