@@ -1,4 +1,4 @@
-def find_missing_number(nums):
+def find_missing_number_1(nums):
     for i, num in enumerate(nums):
         while num != i and num < len(nums):  # here array is missing one number and hence list out of bound will happen
             nums[num], nums[i] = num, nums[num]
@@ -8,6 +8,20 @@ def find_missing_number(nums):
             return i
 
     return len(nums)  # if all numbs are sorted, then return the last index.
+
+
+# BNetter approach
+def find_missing_number(nums):
+    for i, num in enumerate(nums):
+        while num < len(nums) and num != nums[num]:  # Look ahead and skip already in place
+            nums[num], nums[i] = num, nums[num]
+            num = nums[i]
+
+    for i, num in enumerate(nums):
+        if num != i:
+            return i
+
+    return len(nums)
 
 
 def main():

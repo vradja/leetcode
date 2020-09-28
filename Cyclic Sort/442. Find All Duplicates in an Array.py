@@ -6,12 +6,22 @@ def find_all_duplicates_1(nums):  # Ditto copy of LC 448
             num = nums[i]
 
     return [num for index, num in enumerate(nums) if
-            index != num]  # get the value for duplicates and get index for mising.
+            index != num]  # get the value for duplicates and get index for missing.
+
+
+def find_all_duplicates(self, nums):  # Look Ahead Solution
+    nums = [0] + nums
+    for i, num in enumerate(nums):
+        while num != nums[num]:  # Look ahead and ignore duplicates or already in place
+            nums[num], nums[i] = num, nums[num]
+            num = nums[i]
+
+    return [num for index, num in enumerate(nums) if
+            index != num]  # get the value for duplicates and get index for missing.
 
 
 # with flips
-
-def find_all_duplicates(nums):
+def find_all_duplicates_3(nums):
     nums = [0] + nums  # important step to make index -1 simpler.
     duplicates = list()
     for num in nums:

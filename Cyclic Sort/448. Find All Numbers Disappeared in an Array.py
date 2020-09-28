@@ -21,6 +21,14 @@ def find_missing_numbers(nums):  # Better Solution
 
     return [index for index, num in enumerate(nums) if index != num]  # Get index for missing
 
+def find_missing_numbers(nums):  # Look ahead solution
+    nums = [0] + nums
+    for i, num in enumerate(nums):
+        while num != nums[num]:  # Look ahead and Ignore Duplicates or already in place
+            nums[num], nums[i] = num, nums[num]
+            num = nums[i]
+
+    return [index for index, num in enumerate(nums) if index != num]  # Get index for missing
 
 # Using negative flips for the index containing the number
 def find_missing_numbers_2(nums):

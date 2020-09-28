@@ -17,6 +17,16 @@ def find_duplicate_2(nums):
                 nums[num], nums[i] = num, nums[num]
                 num = nums[i]
 
+def find_duplicate(nums):  # look ahead solution.
+    nums = [0] + nums
+    for i, num in enumerate(nums):
+        while num != nums[num]:
+            nums[num], nums[i] = num, nums[num]
+            num = nums[i]
+
+    for i, num in enumerate(nums):
+        if num != i:
+            return num
 
 # IMPORTANT: There is a linked List slow and fast pointer solution to this, figure it out.
 # If no edits to array are allowed. Use linked list
