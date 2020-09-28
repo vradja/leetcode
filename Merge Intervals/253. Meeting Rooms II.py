@@ -21,7 +21,7 @@ def minMeetingRooms(self, intervals):
             heappop(min_heap)
             # Replace an already allocated room. Hence len(min_heap) will contain the min no of rooms needed, given the intervals.
 
-        heappush(min_heap,interval[1])
+        heappush(min_heap, interval[1])
         # store the ending time in heap to find the earliest closing time of meeting
         # This also allocates a new room everytime.
 

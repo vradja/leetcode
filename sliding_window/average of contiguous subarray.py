@@ -1,6 +1,7 @@
 import functools
 import itertools
 
+
 # Given an array, find the average of all contiguous subarrays of size ‘K’ in it.
 
 

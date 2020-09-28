@@ -7,7 +7,7 @@ class Node:
 def find_cycle_length_1(head):
     slow = fast = head
     cycle_length = 0
-    while fast is not None and fast.next is not None: # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
+    while fast is not None and fast.next is not None:  # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
         slow, fast = slow.next, fast.next.next
         if slow == fast:
             slow, cycle_length = slow.next, 1
@@ -18,15 +18,17 @@ def find_cycle_length_1(head):
     else:
         return cycle_length
 
+
 # Better solution. Both pointers intersect at cycle length.
 def find_cycle_length(head):
     slow = fast = head
     cycle_length = 0
-    while fast is not None and fast.next is not None: # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
+    while fast is not None and fast.next is not None:  # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
         slow, fast = slow.next, fast.next.next
         cycle_length += 1
         if slow == fast:
             return cycle_length
+
 
 def main():
     head = Node(1)

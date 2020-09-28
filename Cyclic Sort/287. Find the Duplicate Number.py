@@ -13,8 +13,9 @@ def find_duplicate_2(nums):
         while num != i:  # while not in position
             if num == nums[num]:
                 return num
-            nums[num], nums[i] = num, nums[num]
-            num = nums[i]
+            else:
+                nums[num], nums[i] = num, nums[num]
+                num = nums[i]
 
 
 # IMPORTANT: There is a linked List slow and fast pointer solution to this, figure it out.

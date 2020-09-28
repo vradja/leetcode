@@ -7,8 +7,6 @@ Try solving these problems too:
 56 (A) Given a set of intervals, find out if any two intervals overlap.
 '''
 
-
-
 from __future__ import print_function
 
 

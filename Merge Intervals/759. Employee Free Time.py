@@ -24,6 +24,7 @@ class EmployeeInterval:
         # min heap based on meeting.end
         return self.interval.start < other.interval.start
 
+
 # Vishnu Solution
 def find_employee_free_time(schedule):
     flat_list = sorted([interval for intervals in schedule for interval in intervals], key=lambda x: x.start)
@@ -33,6 +34,7 @@ def find_employee_free_time(schedule):
             missing.append(Interval(prev_end_time, interval.start))
         prev_end_time = max(prev_end_time, interval.end)  # ex: (0, 25), (3,16) => (0,25)
     return missing
+
 
 def find_employee_free_time_1(schedule):
     if schedule is None:

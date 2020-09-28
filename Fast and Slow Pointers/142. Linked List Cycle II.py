@@ -55,10 +55,11 @@ def find_cycle_start(head):
     slow = fast = head
     while fast is not None and fast.next is not None:  # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
         slow, fast = slow.next, fast.next.next
-        if slow == fast: # keep the intercept as it is already cycle length step ahead of head
+        if slow == fast:  # keep the intercept as it is already cycle length step ahead of head
             while head != slow:
                 head, slow = head.next, slow.next
             return head
+
 
 def main():
     head = Node(1)

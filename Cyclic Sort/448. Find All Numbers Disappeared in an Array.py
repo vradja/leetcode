@@ -19,7 +19,7 @@ def find_missing_numbers(nums):  # Better Solution
             nums[num], nums[i] = num, nums[num]
             num = nums[i]
 
-    return [index for index, num in enumerate(nums) if index != num]
+    return [index for index, num in enumerate(nums) if index != num]  # Get index for missing
 
 
 # Using negative flips for the index containing the number

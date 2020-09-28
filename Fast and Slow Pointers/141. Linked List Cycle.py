@@ -6,12 +6,13 @@ class Node:
 
 def has_cycle(head):
     slow = fast = head
-    while fast is not None and fast.next is not None: # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
+    while fast is not None and fast.next is not None:  # no reason to check for slow pointer, since its anyways slow and wont reach NULL before fast.
         slow, fast = slow.next, fast.next.next
         if slow == fast:
             return True
         else:
             return False
+
 
 def main():
     head = Node(1)

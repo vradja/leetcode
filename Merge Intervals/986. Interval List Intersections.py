@@ -7,10 +7,11 @@ def merge(intervals_a, intervals_b):
             if start <= end:  # if overlap exist
                 result.append([start, end])
 
-            if interval_a[1] < interval_b[1]: # if you predict no intersection, move to next entry in A
+            if interval_a[1] < interval_b[1]:  # if you predict no intersection, move to next entry in A
                 break
 
     return result
+
 
 # seems to be faster but I couldnt find the reason why.
 def intervalIntersection(self, A, B):
