@@ -1,55 +1,70 @@
-import itertools
+import os
+from collections import Counter
 
 import matplotlib.pyplot as plt
 import squarify
-import webcolors
 from PIL import Image
-from scipy.spatial import KDTree
+from sklearn.cluster import KMeans
 
 
-def populate_space_db():
-    names, positions = list(), list()
-    for name, hex_val in webcolors.CSS3_NAMES_TO_HEX.items():
-        names.append(name)
-        positions.append(webcolors.hex_to_rgb(hex_val))
-    return KDTree(positions), names
+def k_means(data, size):
+    kmeans = KMeans(n_clusters=size).fit(data)
+    centroids = kmeans.cluster_centers_
+    print(centroids)
+    cluster_colors = [(int(a[0]), int(a[1]), int(a[2])) for a in centroids]
+    cluster_hex_colors = ['#%02x%02x%02x' % i for i in cluster_colors]
+    sizes = Counter(kmeans.labels_).values()
 
+    # Plot histogram from colors_count dictionary
+    plt.bar(cluster_hex_colors, sizes, color=cluster_hex_colors)
+    plt.xticks(rotation='vertical')
+    plt.show()
 
-def populate_colours_count_dict(space_db, names, data, size):
-    colors_count = dict()
-    for count, rgb in data:
-        dist, index = space_db.query(rgb)
-        color = names[index]
-        if color not in colors_count:
-            colors_count[color] = count
-        else:
-            colors_count[color] += count
+    plt.rc('font', size=14)
+    squarify.plot(sizes=sizes, label=cluster_hex_colors,
+                  color=cluster_hex_colors, alpha=0.7)
+    plt.axis('off')
+    plt.show()
 
-    colors_count = {k: v for k, v in sorted(colors_count.items(), key=lambda item: item[1], reverse=True)}
-    return dict(itertools.islice(colors_count.items(), size))
+    plt.rc('font', size=14)
+    squarify.plot(sizes=sizes,
+                  color=cluster_hex_colors, alpha=0.7)
+    plt.axis('off')
+    plt.show()
 
 
 # Enter Image's Absolute Path
-im = Image.open('/Users/vradja/Desktop/img_tanvi.jpg')
-data = im.getcolors(im.size[0] * im.size[1])
-space_db, names = populate_space_db()
-colors_count = populate_colours_count_dict(space_db, names, data, 7)  # Enter size / top no of colors to display
+path = '/Users/vradja/Desktop/test'
+merge = False
+size = 7
+cumulative_data = list()
 
-sum = 0
-for (key, value) in colors_count.items(): sum += value
-for key, value in colors_count.items():
-    percentage = value / (sum + 0.0)
-    print("percentage of '%s' is %.2f %%" % (key, percentage * 100))
+if os.path.isfile(path):
+    im = Image.open(path)
+    data = im.getcolors(im.size[0] * im.size[1])
+    for d in data:
+        cumulative_data += [d[1]] * d[0]
+    k_means(cumulative_data, size)
 
-# Plot histogram from colors_count dictionary
-plt.bar(list(colors_count.keys()), colors_count.values(), color=colors_count.keys())
-plt.xticks(rotation='vertical')
-plt.show()
-
-plt.rc('font', size=14)
-squarify.plot(sizes=colors_count.values(), label=colors_count.keys(),
-              color=colors_count.keys(), alpha=0.7)
-plt.axis('off')
-plt.show()
-
-pass
+if os.path.isdir(path):
+    if merge:
+        data = list()
+        for file in os.listdir(path):
+            filename = os.fsdecode(file)
+            if filename.endswith(".jpg"):
+                file_path = path + '/' + file
+                im = Image.open(file_path)
+                data += im.getcolors(im.size[0] * im.size[1])
+        for d in data:
+            cumulative_data += [d[1]] * d[0]
+        k_means(cumulative_data, size)
+    else:
+        for file in os.listdir(path):
+            filename = os.fsdecode(file)
+            if filename.endswith(".jpg"):
+                file_path = path + '/' + file
+                im = Image.open(file_path)
+                data = im.getcolors(im.size[0] * im.size[1])
+                for d in data:
+                    cumulative_data += [d[1]] * d[0]
+                k_means(cumulative_data, size)

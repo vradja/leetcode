@@ -17,7 +17,7 @@ def find_duplicate_2(nums):
                 nums[num], nums[i] = num, nums[num]
                 num = nums[i]
 
-def find_duplicate(nums):  # look ahead solution.
+def find_duplicate_3(nums):  # look ahead solution.
     nums = [0] + nums
     for i, num in enumerate(nums):
         while num != nums[num]:
