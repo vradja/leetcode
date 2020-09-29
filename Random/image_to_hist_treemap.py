@@ -34,7 +34,7 @@ def k_means(data, size):
 
 
 # Enter Image's Absolute Path
-path = '/Users/vradja/Desktop/test'
+path = '/Users/vradja/Desktop/img_tanvi.jpg'
 merge = False
 size = 7
 cumulative_data = list()
@@ -60,6 +60,7 @@ if os.path.isdir(path):
         k_means(cumulative_data, size)
     else:
         for file in os.listdir(path):
+            cumulative_data = list()
             filename = os.fsdecode(file)
             if filename.endswith(".jpg"):
                 file_path = path + '/' + file

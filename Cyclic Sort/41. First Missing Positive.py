@@ -14,11 +14,12 @@ def find_first_missing_positive_1(nums):
     return len(nums) + 1
 
 
-def find_first_missing_positive_2(nums):
+def find_first_missing_positive(nums):
     nums = [0] + nums
     for i, num in enumerate(nums):
         while 0 < num < len(nums) and num != nums[num]:
             nums[num], num = num, nums[num]
+            num = nums[i] # IMPORTANT, DO NOT FORGET
 
     for i, num in enumerate(nums):
         if num != i:
@@ -26,7 +27,7 @@ def find_first_missing_positive_2(nums):
     return len(nums)
 
 
-def find_first_missing_positive(nums): # without modifying and using no extra space
+def find_first_missing_positive_3(nums): # without modifying and using no extra space
     for i, num in enumerate(nums):
         while 0 < num <= len(nums) and num != nums[num - 1]:
             nums[num - 1], num = num, nums[num-1]
