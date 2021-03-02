@@ -20,7 +20,7 @@ def calculate_bitwise_complement_1(num):
 
 
 # Merge approach 1 into single loop.
-def calculate_bitwise_complement(num):
+def calculate_bitwise_complement_2(num):
     if num == 0: return 1  # IMPORTANT base condition. Do not miss
 
     bit, temp_num = 1, num
@@ -32,6 +32,22 @@ def calculate_bitwise_complement(num):
         temp_num >>= 1  # moves right till bitcount or num becomes 0
 
     return num
+
+
+# Approach 3:
+from math import log2, floor
+
+
+def calculate_bitwise_complement(N: int) -> int:
+    if N == 0:
+        return 1
+
+    l = floor(log2(N)) + 1 # log of a number gives you number of bits + 1
+
+    # This step will set all the bits count to 1
+    bitmask = (1 << l) - 1
+    # flip all bits
+    return bitmask ^ N
 
 
 def main():
