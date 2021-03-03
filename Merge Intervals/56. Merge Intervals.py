@@ -40,10 +40,21 @@ def merge_1(intervals):
 
 
 # Space efficient solution but can give it a try: Store evr
-def merge(intervals):
+def merge_2(intervals):
     merged = list()
     for interval in sorted(intervals, key=lambda x: x.start):
         if merged and interval.start < merged[-1].end:
+            merged[-1].end = max(merged[-1].end, interval.end)
+        else:
+            merged.append(interval)
+    return merged
+
+
+# redoing it for practice: March 2, 2021
+def merge(intervals):
+    merged = list()
+    for interval in sorted(intervals, key=lambda x: x.start):
+        if merged and interval.start <= merged[-1].end:
             merged[-1].end = max(merged[-1].end, interval.end)
         else:
             merged.append(interval)
