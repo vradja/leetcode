@@ -1,3 +1,5 @@
+# LOOK INTO SOLUTIONS TAB IN LEETCODE FOR MORE INSIGHTS
+
 # Approach 1.
 def calculate_bitwise_complement_1(num):
     bitcount = 0
@@ -42,7 +44,7 @@ def calculate_bitwise_complement(N: int) -> int:
     if N == 0:
         return 1
 
-    l = floor(log2(N)) + 1 # log of a number gives you number of bits + 1
+    l = floor(log2(N)) + 1  # log of a number gives you number of bits + 1
 
     # This step will set all the bits count to 1
     bitmask = (1 << l) - 1

@@ -5,6 +5,7 @@ from functools import reduce
 def find_single_numbers(nums):
     # calculate bitwise leads to difference between 2 unique numbers
     bitmask = reduce(operator.xor, nums)
+    # Here bitmask follows the rule that a^b = bitmask => a^bitmask = b => b^bitmask = a
 
     # hint: split them into 2 groups based on their rightmost 1 or 2 unique number's difference.
     # hint: x & -x = right_most_1.
@@ -12,9 +13,9 @@ def find_single_numbers(nums):
     right_most_1 = bitmask & -bitmask
 
     # x & -x is similar to the below implementation:
-    rightmost_set_bit = 1 # we arent using this anywhere below. This is for example only.
+    rightmost_set_bit = 1  # we arent using this anywhere below. This is for example only.
     while (rightmost_set_bit & bitmask) == 0:
-        rightmost_set_bit = rightmost_set_bit << 1 # here we keep moving left, till we find the 1. As we know 2 numbers
+        rightmost_set_bit = rightmost_set_bit << 1  # here we keep moving left, till we find the 1. As we know 2 numbers
         # are unique, this bitmask cannot be 0, and it should defer by atleast 1 bit and we end up finding the rightmost
 
     first_unique_number = 0
